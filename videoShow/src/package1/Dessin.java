@@ -1,6 +1,7 @@
 package package1;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -13,6 +14,8 @@ public class Dessin extends JPanel{
      */
     private final List<TrainCercle> listeTrain = new CopyOnWriteArrayList();
     private final List<Visage> listeVisage = new CopyOnWriteArrayList();
+    private final List<PolygoneRegulier> listePoly = new CopyOnWriteArrayList();
+    private final List<Etoile> listeEtoile = new CopyOnWriteArrayList();
     /**
      * retourne la largeur de la zone de dessin.
      *
@@ -59,6 +62,28 @@ public class Dessin extends JPanel{
             this.pause(10);
         }
     }
+    public void ajouterObjet3(PolygoneRegulier p) {
+
+        if (!listePoly.contains(p)) {
+            // l'objet n'est pas d��j�� dans la liste
+            // on le rajoute a la liste des objets du dessin
+        	listePoly.add(p);
+            // le dessin se r��affiche
+            repaint();
+            this.pause(10);
+        }
+    }
+    public void ajouterObjet4(Etoile E) {
+
+        if (!listeEtoile.contains(E)) {
+            // l'objet n'est pas d��j�� dans la liste
+            // on le rajoute a la liste des objets du dessin
+        	listeEtoile.add(E);
+            // le dessin se r��affiche
+            repaint();
+            this.pause(10);
+        }
+    }
     /**
      * temporisation de l'animation.
      *
@@ -76,7 +101,7 @@ public class Dessin extends JPanel{
      *
      * @param g le contexte graphique
      */
-  
+    
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         //  dessiner les trains que contient le dessin
@@ -86,6 +111,14 @@ public class Dessin extends JPanel{
         for (Visage c : listeVisage) {
             c.dessiner(g);
         }
+        for (PolygoneRegulier c : listePoly) {
+            c.dessiner(g);
+        }
+        for (Etoile E : listeEtoile) {
+        	E.dessiner(g);
+            
+        }
+
     }
     /*public void paintComponent2(Graphics g) {
         super.paintComponent(g);
@@ -104,10 +137,14 @@ public class Dessin extends JPanel{
         	c.deplacer();
             
         }
-        for (Visage v : listeVisage) {
+        /*for (Visage v : listeVisage) {
         	v.deplacer();
             
-        }
+        }*/
+        /*for (PolygoneRegulier p : listePoly) {
+        	p.deplacer();
+            
+        }*/
     }
 
 }

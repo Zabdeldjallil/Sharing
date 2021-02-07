@@ -1,0 +1,10 @@
+package package1;
+
+import java.awt.Graphics2D;
+class Dessin2D extends Dessin{
+	public void paintComponent(Graphics2D g) {
+    	for (Visage c : listeVisage) {
+            c.dessiner(g);
+        }
+    }
+}

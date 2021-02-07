@@ -1,0 +1,12 @@
+package package1;
+
+interface IFormeAnimable {
+
+    /**
+     * fait faire un déplacement élémentaire à une forme.
+     *
+     * @param f la forme à déplacer
+     */
+    public void deplacer(Forme f);
+    public static void animer();
+}

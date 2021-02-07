@@ -1,8 +1,14 @@
 package package1;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+//import java.awt.Graphics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
-public class Visage implements IObjetDessinable {
+public class Visage {
 	 // ---------------------------------------------------------
     // Les constantes de la classe Visage
     // ---------------------------------------------------------
@@ -87,7 +93,8 @@ public class Visage implements IObjetDessinable {
      * @param d la zone de dessin dans laquelle le visage rond se déplace
      */
     public Visage(Dessin d) {
-        this(d, d.getLargeur() / 2, d.getHauteur() / 2, LARGEUR_DEFAUT, HAUTEUR_DEFAUT);
+    	//super(10,10,10,10,Color.GREEN,Color.GREEN);
+    	this(d, d.getLargeur() / 2, d.getHauteur() / 2, LARGEUR_DEFAUT, HAUTEUR_DEFAUT);
     }
 
     /**
@@ -104,7 +111,10 @@ public class Visage implements IObjetDessinable {
         this(d, xg, yg, LARGEUR_DEFAUT, HAUTEUR_DEFAUT);
 
     }
-
+    public void placerA(int x, int y) {
+        this.dx = x;
+        this.dy = y;
+    }
     /**
      * Constructeur avec positionnement du visage et définition de sa taille.
      * Crée un visage dont les diemensions et la position du coin supérieur
@@ -135,6 +145,7 @@ public class Visage implements IObjetDessinable {
      *
      * @return valeur de dx, déplacement élémentaire horizontal.
      */
+    
     public int getDx() {
         return dx;
     }
@@ -281,7 +292,7 @@ public class Visage implements IObjetDessinable {
      * @see java.awt.Graphics
      * @see Dessinable
      */
-    public void dessiner(Graphics g) {
+    /*public void dessiner(Graphics g) {
         // dessiner le contour du visage
         g.drawOval(xhg, yhg, largeur, hauteur);
 
@@ -302,6 +313,29 @@ public class Visage implements IObjetDessinable {
         g.drawOval(xhg + 3 * largeurOeil, yhg + hauteurOeil, largeurOeil,
                 hauteurOeil);
 
-    }
+    }*/
+    public void dessiner(Graphics g) {
+		
+		Graphics2D g2D = (Graphics2D) g;
+		
+		//g2D.drawImage(backgroundImage, 0, 0, null);
+		g2D.drawOval(xhg, yhg, largeur, hauteur);
+		// dessiner la bouche
+        if (impassible) {
+            g.drawLine(xhg + largeur / 4, yhg + (2 * hauteur) / 3,
+                    xhg + (3 * largeur) / 4, yhg + (2 * hauteur) / 3);
+        } else {
+            g.drawArc(xhg + largeur / 4, yhg + (2 * hauteur) / 3,
+                    largeur / 2, hauteur / 5, -45, -90);
+        }
+
+        // dessiner les yeux
+        int largeurOeil = largeur / 5;
+        int hauteurOeil = hauteur / 5;
+        g.drawOval(xhg + largeurOeil, yhg + hauteurOeil, largeurOeil,
+                hauteurOeil);
+        g.drawOval(xhg + 3 * largeurOeil, yhg + hauteurOeil, largeurOeil,
+                hauteurOeil);
+	}
 }
 
